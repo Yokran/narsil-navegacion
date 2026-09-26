@@ -1,0 +1,35 @@
+/* Pantalla de arranque — ÚNICA fuente de verdad.
+   La usan dos sitios: index.html (estática, desde el primer pintado, antes de React) y el
+   lanzador (backend/app/arranque.py la incrusta, con fuentes y escudo como datos). Si se toca
+   una medida aquí, cambia en los dos: así no hay dos pantallas, hay una.
+   Mismas medidas y colores que `.arranque` en la plataforma: abismo #090D18, caja 392 px,
+   escudo 150 px, tracking 0,34em, coletilla en brillo. */
+@font-face{font-family:'Archivo';font-weight:400;font-display:block;src:url('/fonts/Archivo-400-latin.woff2') format('woff2');}
+@font-face{font-family:'Archivo';font-weight:600;font-display:block;src:url('/fonts/Archivo-600-latin.woff2') format('woff2');}
+html,body{background:#090D18;}
+/* Nada se hereda del documento que la aloje: en la interfaz el cuerpo lleva 14 px y 18 px de
+   línea (tokens + Blueprint) y en el lanzador no hay cuerpo. Sin fijarlo aquí, la caja medía
+   3,6 px más en un sitio que en otro y el escudo subía 1,8 px al cambiar de documento. */
+.arranque{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:#090D18;color:#E4DED9;
+  font-family:'Archivo','Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.25;letter-spacing:0;
+  overflow:hidden;user-select:none;-webkit-font-smoothing:antialiased;
+  transition:opacity 260ms ease-out,visibility 0s linear 260ms;}
+.arranque *{box-sizing:border-box;margin:0;padding:0;}
+.arranque--fundido{opacity:0;visibility:hidden;pointer-events:none;}
+.cosmos{position:absolute;inset:0;z-index:0;pointer-events:none;}
+.cosmos__lienzo{width:100%;height:100%;display:block;}
+.cosmos__destello{position:absolute;left:0;right:0;top:50%;height:1px;transform:translateY(-50%);
+  background:linear-gradient(90deg,transparent 0%,rgba(159,106,87,.28) 22%,rgba(222,193,183,.72) 50%,
+  rgba(159,106,87,.28) 78%,transparent 100%);box-shadow:0 0 22px 3px rgba(192,141,79,.28);}
+.arranque__caja{position:relative;z-index:1;width:min(392px,100%);display:grid;gap:24px;justify-items:center;padding:48px 32px;}
+.arranque__logo,.arranque__marca,.arranque__coletilla,.arranque__pie{display:block;}
+.arranque__logo{width:150px;height:150px;filter:drop-shadow(0 0 34px rgba(192,141,79,.24));}
+.arranque__nombre{display:flex;flex-direction:column;align-items:center;gap:2px;margin:12px 0 24px;}
+.arranque__marca{font-size:28px;font-weight:600;letter-spacing:.34em;padding-left:.34em;line-height:1.2;text-shadow:0 0 18px rgba(222,193,183,.22);}
+.arranque__coletilla{font-size:12px;line-height:14px;letter-spacing:.22em;text-transform:uppercase;color:#DEC1B7;}
+.arranque__barra{position:relative;width:100%;height:2px;background:#26314F;border-radius:2px;overflow:hidden;}
+.arranque__barra::after{content:'';position:absolute;top:0;bottom:0;left:-40%;width:40%;
+  background:linear-gradient(90deg,transparent,#9F6A57,#DEC1B7,#9F6A57,transparent);animation:arranque-barra 1.6s ease-in-out infinite;}
+@keyframes arranque-barra{to{left:100%;}}
+@media (prefers-reduced-motion:reduce){.arranque__barra::after{animation:none;left:0;width:100%;opacity:.5;}}
+.arranque__pie{display:flex;gap:12px;align-items:center;font-size:11px;line-height:12px;color:#A89693;}

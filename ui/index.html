@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/narsil.ico" />
+    <title>NARSIL — Navegación</title>
+    <!--
+      Ni una etiqueta <link> a un dominio ajeno. Las tipografías (Archivo y JetBrains
+      Mono) son ficheros en /fonts y se declaran en src/brand/fonts.css: un puesto que
+      opera identidades no le cuenta a un CDN cuándo se abre la aplicación.
+
+      La pantalla de arranque va aquí, estática, ANTES de React: así está en el primer
+      fotograma del documento y es la misma que ya enseñaba el lanzador (public/arranque.css
+      y public/arranque.js son la única fuente; la CSP no admite script en línea). React se
+      limita a fundirla cuando la interfaz está cargada.
+    -->
+    <link rel="preload" as="image" href="/marca/escudo.png" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/Archivo-600-latin.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/Archivo-400-latin.woff2" />
+    <link rel="stylesheet" href="/arranque.css" />
+  </head>
+  <!-- El tema NARSIL sobre Blueprint va en <body> y no en el contenedor de la app:
+       los overlays de Blueprint (Dialog, Alert, Popover, Select) se montan en un
+       portal colgado de body y quedarían fuera del alcance de la clase. -->
+  <body class="narsil-bp bp6-dark">
+    <div id="arranque" class="arranque" role="status" aria-label="Arrancando NARSIL Navegación">
+      <div class="cosmos" aria-hidden="true"><canvas id="arranque-cosmos" class="cosmos__lienzo"></canvas><div class="cosmos__destello"></div></div>
+      <div class="arranque__caja">
+        <img class="arranque__logo" src="/marca/escudo.png" alt="" />
+        <div class="arranque__nombre">
+          <span class="arranque__marca">NARSIL</span>
+          <span class="arranque__coletilla">Navegación</span>
+        </div>
+        <div class="arranque__barra" role="progressbar" aria-label="Arrancando"></div>
+        <div class="arranque__pie"><span>Puesto del operador</span></div>
+      </div>
+    </div>
+    <script src="/arranque.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

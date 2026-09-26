@@ -1,0 +1,104 @@
+LICENCIA DE USO GRATUITO DE NARSIL NAVEGACIÓN
+NARSIL Navigation Layer — Free Use License
+Versión 1.0 · septiembre de 2026
+
+NARSIL Navegación (en adelante, «el Software») es el Módulo de navegación de NARSIL
+Intelligence Platform. Comprende los ejecutables, el código fuente, la interfaz, la
+extensión Collector, las plantillas de perfil, la documentación y los recursos gráficos que
+acompañan a este texto.
+
+Titular de los derechos: NARSIL Intelligence (en adelante, «el Titular»).
+© 2026 NARSIL Intelligence. Todos los derechos reservados.
+
+Este texto en castellano es el único jurídicamente vinculante. Al final se incluye un resumen
+en inglés únicamente a título informativo.
+
+─────────────────────────────────────────────────────────────────────────────
+
+1. OBJETO
+
+   El Titular concede a quien acepte esta licencia (en adelante, «el Usuario») un derecho
+   gratuito, no exclusivo, intransferible y revocable de USO del Software, en los términos
+   que siguen. El Software no se vende: se licencia. Todo derecho que no se conceda de forma
+   expresa queda reservado al Titular.
+
+2. LO QUE EL USUARIO PUEDE HACER
+
+   a) Instalar y ejecutar el Software, sin coste, en cuantos equipos necesite, con fines
+      personales o profesionales, incluida la actividad de una organización.
+   b) Realizar las copias necesarias para instalarlo en esos equipos y para su respaldo.
+   c) Leer el código fuente para comprender qué hace el Software y cómo trata sus datos.
+   d) Construir los ejecutables a partir del código fuente inalterado, exclusivamente para
+      el uso permitido en esta licencia, con los medios que el propio Software proporciona.
+
+3. LO QUE EL USUARIO NO PUEDE HACER
+
+   Salvo autorización previa, expresa y por escrito del Titular, el Usuario no podrá:
+
+   a) Modificar, adaptar, traducir, corregir ni crear obras derivadas del Software, en todo
+      o en parte, ni distribuir versiones modificadas.
+   b) Vender, alquilar, prestar, sublicenciar, ceder ni comercializar el Software, ni
+      cobrar por su instalación, su soporte o cualquier servicio construido sobre él.
+   c) Redistribuir el Software fuera de los canales oficiales del Titular, salvo la copia a
+      los propios equipos del Usuario prevista en el punto 2.b.
+   d) Integrar el Software en otro producto o servicio, o utilizarlo para construir un
+      producto o servicio que compita con NARSIL Intelligence Platform.
+   e) Descompilar, desensamblar o realizar ingeniería inversa del Software más allá de lo
+      que la ley aplicable permita imperativamente.
+   f) Suprimir, alterar u ocultar los avisos de titularidad, de marca o de licencia, ni
+      presentar el Software como propio o como ajeno a NARSIL Intelligence Platform.
+   g) Utilizar las marcas, nombres o logotipos de NARSIL o de NARSIL Intelligence Platform
+      para fines distintos de identificar el Software.
+
+4. USO CONFORME A DERECHO
+
+   El Software gestiona identidades de navegación para tareas de investigación. Su uso es
+   responsabilidad exclusiva del Usuario, que se obliga a respetar la legislación que le sea
+   aplicable, las condiciones de los servicios a los que acceda y los derechos de terceros.
+
+5. NARSIL INTELLIGENCE PLATFORM
+
+   El Software es una parte de NARSIL Intelligence Platform. El resto de la plataforma (el
+   nodo y sus capas) no está incluido en esta licencia y se rige por su propio contrato. La
+   función «Acceder al NODO» requiere disponer de un nodo licenciado.
+
+6. COMPONENTES DE TERCEROS
+
+   El Software se apoya en componentes de terceros que conservan sus licencias propias,
+   entre ellos Mozilla Firefox ESR (Mozilla Public License 2.0, que el Software descarga de
+   Mozilla y no modifica), Python, FastAPI, Uvicorn, pywebview, React y Blueprint. Nada en
+   esta licencia limita los derechos que esas licencias otorgan sobre esos componentes.
+
+7. SIN GARANTÍA
+
+   El Software se entrega «TAL CUAL», sin garantía de ningún tipo, expresa o implícita, en
+   particular sin garantía de comerciabilidad, de idoneidad para un fin determinado, de
+   ausencia de errores o de disponibilidad continuada. El Titular no responderá de ningún
+   daño, directo o indirecto, derivado del uso o de la imposibilidad de uso del Software,
+   en la máxima medida que permita la ley.
+
+8. DURACIÓN Y RESOLUCIÓN
+
+   Esta licencia rige mientras el Usuario la respete. Cualquier incumplimiento la resuelve
+   de forma automática, y el Usuario deberá cesar en el uso y destruir todas las copias.
+   El Titular podrá dejar de distribuir el Software o modificar esta licencia para versiones
+   futuras; las versiones ya obtenidas conservan la licencia con la que se obtuvieron.
+
+9. LEY APLICABLE
+
+   Esta licencia se rige por la legislación española. Para cualquier controversia, las
+   partes se someten a los juzgados y tribunales competentes conforme a esa legislación.
+
+─────────────────────────────────────────────────────────────────────────────
+
+ENGLISH SUMMARY (for information only; the Spanish text above prevails)
+
+NARSIL Navegación is the navigation layer of NARSIL Intelligence Platform, © 2026 NARSIL
+Intelligence, all rights reserved. It is free to install and use on any number of devices,
+for personal or professional purposes, and its source code may be read and built unmodified
+for that use. You may NOT modify it, create derivative works, sell, rent, sublicense or
+otherwise commercialise it, redistribute it outside the official channels, integrate it into
+other products or build competing products with it, reverse-engineer it beyond what the law
+mandatorily allows, or remove its notices. Third-party components (including Mozilla Firefox
+ESR, MPL 2.0) keep their own licenses. The software is provided "AS IS", without warranty of
+any kind. Breach terminates the license. Spanish law applies.

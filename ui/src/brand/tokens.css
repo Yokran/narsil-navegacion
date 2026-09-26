@@ -1,0 +1,147 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   NARSIL Intelligence Platform · capa de marca
+
+   Los seis anclajes de color salen MEDIDOS del manual de marca
+   (`02 Marca/Kit de marca/01 Manual de marca/sistema-narsil.html`, v2.3), que es
+   la fuente de verdad. Lo demás son escalones derivados de esos anclajes para
+   que una aplicación tenga los niveles que necesita (cromo, lienzo, superficie,
+   elevación) sin inventar tonos nuevos.
+
+   ORDEN DE PESO, fijado en el manual de marca: navy primero, blanco después, bronce al
+   final. El navy es la casa; el blanco es lo que se lee; el bronce solo señala.
+
+   REGLAS DEL MANUAL QUE NO SE SALTAN
+   - EL COBRE NO ES COLOR DE TEXTO. Sobre oscuro, el texto va en brillo (#DEC1B7);
+     el cobre (#9F6A57) sobre navy da 2,76:1 y solo vale como símbolo o filete.
+   - El escudo vectorial no baja de 48 px. El cromado no baja de 240 px.
+   - Netron es solo logotipo y titular, y NO se distribuye con esta app.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Anclajes del manual ───────────────────────────────────────────────── */
+  --n-lienzo:        #141B2E;   /* fondo de trabajo */
+  --n-sup:           #1D2742;   /* superficie de tarjeta */
+  --n-linea:         #3A4A6E;   /* filete visible */
+  --n-txt:           #E4DED9;   /* texto principal   12,9:1 sobre lienzo */
+  --n-txt-2:         #C4B7B3;   /*  9,3:1 */
+  --n-txt-3:         #A89693;   /*  6,6:1 */
+
+  /* ── Escalones derivados ───────────────────────────────────────────────── */
+  --n-abismo:        #090D18;   /* fondo del cosmos, login y arranque */
+  --n-cromo:         #0E1424;   /* barra lateral y cabecera */
+  --n-cromo-alto:    #16203A;   /* hover en el cromo */
+  --n-cromo-activo:  #1E2C4C;   /* elemento de menú seleccionado */
+  --n-sup-alta:      #243052;   /* tarjeta elevada, fila en hover */
+  --n-sup-hunde:     #111829;   /* campos de entrada, bloques de código */
+  --n-linea-sutil:   #26314F;   /* separador de fila */
+  --n-linea-fuerte:  #4A5C84;   /* separación de zona, control enfocado */
+
+  /* Superficies que SIEMPRE van oscuras: sobre claro, una arista de 1 px muere */
+  --n-grafo:         #070C16;
+  --n-mapa:          #070F1B;
+
+  /* ── Bronce: acento gráfico, jamás texto ───────────────────────────────── */
+  --n-bronce:        #9F6A57;   /* filete, icono, símbolo */
+  --n-bronce-vivo:   #C08D4F;   /* acento en el cromo */
+  --n-brillo:        #DEC1B7;   /* ESTE es el texto de acento sobre oscuro */
+  --n-sombra:        #4B352F;
+  --n-bronce-tinte:  rgba(159, 106, 87, 0.14);
+  --n-bronce-borde:  rgba(192, 141, 79, 0.38);
+
+  /* ── Estados semánticos (nunca se codifican con el bronce) ─────────────── */
+  --n-info:          #7FB3E8;
+  --n-info-tinte:    rgba(127, 179, 232, 0.13);
+  --n-exito:         #5FCB9B;
+  --n-exito-tinte:   rgba(95, 203, 155, 0.13);
+  --n-aviso:         #E0A33E;
+  --n-aviso-tinte:   rgba(224, 163, 62, 0.13);
+  --n-peligro:       #F0736A;
+  --n-peligro-tinte: rgba(240, 115, 106, 0.13);
+  --n-violeta:       #A98BE0;
+  --n-violeta-tinte: rgba(169, 139, 224, 0.13);
+
+  /* ── Clasificación del expediente ──────────────────────────────────────── */
+  --n-clas-sin:          #7D8CA6;
+  --n-clas-limitada:     #5B9BD5;
+  --n-clas-confidencial: #E0A33E;
+  --n-clas-reservado:    #E8794A;
+
+  /* ── Tipografía ────────────────────────────────────────────────────────── */
+  --n-fuente:      "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --n-mono:        "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Netron no se empaqueta aquí (licencia de uso personal): cae en Archivo. */
+  --n-titular:     "Netron", "Archivo", sans-serif;
+
+  --n-t-xs:   11px;
+  --n-t-sm:   12px;
+  --n-t-base: 13px;
+  --n-t-md:   15px;
+  --n-t-lg:   19px;
+  --n-t-xl:   25px;
+  --n-t-2xl:  33px;
+
+  /* ── Rejilla y relieve ─────────────────────────────────────────────────── */
+  --n-e-1: 4px;
+  --n-e-2: 8px;
+  --n-e-3: 12px;
+  --n-e-4: 16px;
+  --n-e-5: 24px;
+  --n-e-6: 32px;
+  --n-e-7: 48px;
+
+  --n-radio-sm: 4px;
+  --n-radio:    7px;
+  --n-radio-lg: 12px;
+
+  --n-sombra-1: 0 1px 2px rgba(0, 0, 0, 0.42);
+  --n-sombra-2: 0 6px 18px rgba(0, 0, 0, 0.46);
+  --n-sombra-3: 0 22px 60px rgba(0, 0, 0, 0.58);
+
+  --n-lateral: 232px;   /* ancho de la columna de menú */
+  --n-cabecera: 52px;
+
+  --n-transicion: 140ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  color-scheme: dark;
+}
+
+/* ── Reinicio corto ───────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--n-lienzo);
+  color: var(--n-txt);
+  font-family: var(--n-fuente);
+  font-size: var(--n-t-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+button { cursor: pointer; }
+
+:focus-visible {
+  outline: 2px solid var(--n-linea-fuerte);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--n-linea-sutil);
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover { background-color: var(--n-linea); }
+
+/* El texto monoespaciado se usa mucho: hashes, identificadores, herramientas */
+.mono { font-family: var(--n-mono); font-variant-ligatures: none; }

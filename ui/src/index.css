@@ -1,0 +1,387 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   NARSIL Navegación — carcasa de la aplicación.
+
+   Los colores NO se declaran aquí: salen de `brand/tokens.css`, que es la misma
+   capa de marca que viste la plataforma. Esta hoja sólo coloca las piezas que la
+   app tiene y el nodo no: la cabecera con el nodo configurable, la rejilla de
+   identidades y la barra de estado.
+
+   Dos reglas del manual v2.3 gobiernan todo lo de abajo:
+   · El bronce (#9F6A57) es filete, icono o relleno. NUNCA letra: sobre el navy
+     da 2,76:1. Donde hace falta acento escrito se usa el brillo (#DEC1B7).
+   · Ni una petición fuera de este equipo. Las tipografías son ficheros locales
+     (`brand/fonts.css` → /fonts/…), no una llamada a Google Fonts.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+@import './brand/fonts.css';
+@import './brand/tokens.css';
+
+html, body, #root { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+
+/* ══ Carcasa ════════════════════════════════════════════════════════════════ */
+
+.nav-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--n-lienzo);
+  color: var(--n-txt);
+}
+
+.nav-main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0 var(--n-e-5);
+}
+
+/* ══ Cabecera ═══════════════════════════════════════════════════════════════ */
+
+.nav-header {
+  position: relative;   /* ancla del filete de bronce de abajo */
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--n-e-4);
+  padding: 0 var(--n-e-5);
+  height: 58px;
+  background: var(--n-cromo);
+  border-bottom: 1px solid var(--n-linea-sutil);
+}
+
+/* El filete de bronce bajo la cabecera es la única firma de color de la pantalla. */
+.nav-header::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--n-bronce) 0%, rgba(159, 106, 87, 0) 62%);
+  pointer-events: none;
+}
+
+.nav-brand { display: flex; align-items: center; gap: var(--n-e-3); }
+
+/* El escudo sin nombre, a 30 px, con el nombre escrito al lado: el logotipo
+   completo del kit recorta la palabra NARSIL, así que aquí se compone. */
+.nav-escudo { width: 30px; height: 30px; display: block; flex: 0 0 auto; }
+
+.nav-brand-mark {
+  font-size: var(--n-t-lg);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  padding-left: 0.22em;
+  color: var(--n-txt);
+  line-height: 1;
+}
+
+.nav-brand-sub {
+  font-family: var(--n-mono);
+  font-size: var(--n-t-xs);
+  letter-spacing: 0.24em;
+  color: var(--n-txt-3);
+  text-transform: uppercase;
+  padding-left: var(--n-e-2);
+  border-left: 1px solid var(--n-linea);
+  margin-left: var(--n-e-1);
+  line-height: 1.1;
+}
+
+.nav-status {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--n-e-2);
+  font-family: var(--n-mono);
+  font-size: var(--n-t-xs);
+  color: var(--n-txt-3);
+  letter-spacing: 0.06em;
+}
+
+.nav-dot { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; }
+.nav-dot.on  { background: var(--n-exito); }
+.nav-dot.off { background: var(--n-peligro); }
+
+.nav-sep { color: var(--n-linea); }
+
+.nav-lang {
+  background: var(--n-sup-hunde);
+  border: 1px solid var(--n-linea-sutil);
+  border-radius: var(--n-radio-sm);
+  color: var(--n-txt-2);
+  font-family: var(--n-mono);
+  font-size: var(--n-t-xs);
+  padding: 3px 6px;
+}
+
+/* ── Bloque del nodo NARSIL (lo propio de esta app) ───────────────────────── */
+
+.nav-nodo {
+  display: flex;
+  align-items: center;
+  gap: var(--n-e-2);
+}
+
+/* Botón de acceso al nodo: la acción principal de la cabecera. El de configuración va al lado,
+   discreto: se usa una vez por puesto. */
+.nav-nodo .btn { white-space: nowrap; }
+.nav-nodo__engranaje { font-size: 14px; line-height: 1; margin-right: 4px; }
+
+/* Aviso de acceso: el texto se lee como un aviso formal, no como un error de sistema. */
+.aviso-licencia { display: grid; gap: var(--n-e-3); font-size: var(--n-t-md); line-height: 1.6; }
+.aviso-licencia__motivo {
+  font-family: var(--n-mono);
+  font-size: var(--n-t-xs);
+  letter-spacing: 0.04em;
+  color: var(--n-txt-3);
+}
+.aviso-licencia__enlace {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--n-mono);
+  color: var(--n-brillo);
+  background: var(--n-bronce-tinte);
+  border: 1px solid var(--n-bronce-borde);
+  border-radius: var(--n-radio);
+  padding: 8px 12px;
+  cursor: pointer;
+  width: fit-content;
+}
+.aviso-licencia__enlace:hover { background: rgba(192, 141, 79, 0.24); }
+
+.nodo-config { display: grid; gap: var(--n-e-3); }
+.nodo-config__ayuda { font-size: var(--n-t-sm); color: var(--n-txt-3); line-height: 1.5; }
+
+/* ══ Página ═════════════════════════════════════════════════════════════════ */
+
+.page-content {
+  flex: 1;
+  min-height: 0;
+  padding-top: var(--n-e-4);
+}
+
+.page-title {
+  font-size: var(--n-t-xl);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--n-txt);
+}
+
+.page-subtitle {
+  margin-top: 2px;
+  margin-bottom: var(--n-e-4);
+  font-size: var(--n-t-base);
+  color: var(--n-txt-3);
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--n-e-2);
+  padding-bottom: var(--n-e-3);
+  margin-bottom: var(--n-e-3);
+  border-bottom: 1px solid var(--n-linea-sutil);
+  flex: 0 0 auto;
+}
+
+/* ══ Botones ════════════════════════════════════════════════════════════════ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--n-e-2);
+  padding: 6px 14px;
+  border-radius: var(--n-radio-sm);
+  border: 1px solid var(--n-linea);
+  background: var(--n-sup);
+  color: var(--n-txt);
+  font-family: var(--n-fuente);
+  font-size: var(--n-t-base);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background var(--n-transicion), border-color var(--n-transicion);
+}
+.btn:hover:not(:disabled) { background: var(--n-sup-alta); border-color: var(--n-linea-fuerte); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* El primario se marca con bronce de FILETE y relleno tenue; la letra va en
+   brillo. Así el acento se ve sin que el cobre haga de tipografía. */
+.btn-primary {
+  background: var(--n-bronce-tinte);
+  border-color: var(--n-bronce-borde);
+  color: var(--n-brillo);
+}
+.btn-primary:hover:not(:disabled) {
+  background: rgba(192, 141, 79, 0.24);
+  border-color: var(--n-bronce-vivo);
+}
+
+.btn-ghost { background: none; border-color: transparent; color: var(--n-txt-2); }
+.btn-ghost:hover:not(:disabled) { background: var(--n-cromo-alto); color: var(--n-txt); border-color: transparent; }
+
+.btn-danger {
+  background: var(--n-peligro-tinte);
+  border-color: rgba(240, 115, 106, 0.4);
+  color: var(--n-peligro);
+}
+.btn-danger:hover:not(:disabled) { background: rgba(240, 115, 106, 0.22); border-color: var(--n-peligro); }
+
+.input {
+  background: var(--n-sup-hunde);
+  border: 1px solid var(--n-linea-sutil);
+  border-radius: var(--n-radio-sm);
+  color: var(--n-txt);
+  font-family: var(--n-fuente);
+  font-size: var(--n-t-base);
+  padding: 5px 9px;
+  outline: none;
+}
+.input:focus { border-color: var(--n-linea-fuerte); }
+
+/* ══ Rejilla de identidades ═════════════════════════════════════════════════ */
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(122px, 1fr));
+  gap: var(--n-e-3);
+  padding-bottom: var(--n-e-2);
+}
+
+.profile-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--n-e-2);
+  padding: var(--n-e-4) var(--n-e-2) var(--n-e-3);
+  background: var(--n-sup);
+  border: 1px solid var(--n-linea-sutil);
+  border-radius: var(--n-radio);
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--n-transicion), border-color var(--n-transicion);
+}
+.profile-tile:hover { background: var(--n-sup-alta); border-color: var(--n-linea); }
+
+/* La seleccionada se marca con el filete de bronce, que es lo que el manual
+   reserva para señalar. Nada de cambiar el color de la letra. */
+.profile-tile.selected {
+  border-color: var(--n-bronce-borde);
+  background: var(--n-sup-alta);
+  box-shadow: inset 3px 0 0 var(--n-bronce);
+}
+
+.profile-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--n-sup-hunde);
+  border: 1px solid var(--n-linea-sutil);
+  color: var(--n-txt-3);
+  flex: 0 0 auto;
+}
+.profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.profile-name {
+  font-size: var(--n-t-sm);
+  color: var(--n-txt);
+  text-align: center;
+  word-break: break-word;
+  line-height: 1.35;
+}
+
+.profile-running-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--n-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--n-exito);
+}
+
+/* ══ Progreso ═══════════════════════════════════════════════════════════════ */
+
+.progress-bar-track {
+  width: 100%;
+  height: 5px;
+  background: var(--n-sup-hunde);
+  border: 1px solid var(--n-linea-sutil);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: var(--n-bronce-vivo);
+  transition: width 200ms linear;
+}
+
+/* ══ Barra de estado ════════════════════════════════════════════════════════ */
+
+.status-bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--n-e-2);
+  height: 26px;
+  padding: 0 var(--n-e-5);
+  background: var(--n-cromo);
+  border-top: 1px solid var(--n-linea-sutil);
+  font-family: var(--n-mono);
+  font-size: var(--n-t-xs);
+  color: var(--n-txt-3);
+  letter-spacing: 0.04em;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--n-bronce);
+  flex: 0 0 auto;
+}
+
+/* ══ Aviso de navegador no apto ═════════════════════════════════════════════ */
+
+.aviso-navegador {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--n-e-3);
+  padding: var(--n-e-3) var(--n-e-4);
+  margin-bottom: var(--n-e-3);
+  background: var(--n-aviso-tinte);
+  border: 1px solid rgba(224, 163, 62, 0.38);
+  border-left: 3px solid var(--n-aviso);
+  border-radius: var(--n-radio-sm);
+  font-size: var(--n-t-sm);
+  color: var(--n-txt-2);
+  line-height: 1.55;
+}
+
+/* ══ Actualizaciones ════════════════════════════════════════════════════════ */
+
+.actualizar { display: grid; gap: var(--n-e-3); }
+.actualizar__version { font-size: var(--n-t-sm); color: var(--n-txt-3); }
+.actualizar__notas {
+  margin: 0;
+  max-height: 180px;
+  overflow: auto;
+  padding: var(--n-e-3);
+  background: var(--n-sup-hunde);
+  border: 1px solid var(--n-linea-sutil);
+  border-radius: var(--n-radio);
+  font-family: var(--n-fuente);
+  font-size: var(--n-t-sm);
+  white-space: pre-wrap;
+  color: var(--n-txt-2);
+}
+.actualizar__ayuda { font-size: var(--n-t-sm); color: var(--n-txt-3); line-height: 1.5; }

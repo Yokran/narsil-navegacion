@@ -1,0 +1,493 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   TEMA NARSIL sobre Blueprint 6.
+   Redefine los design tokens de Blueprint y reviste sus componentes con la
+   identidad de NARSIL (navy #141B2E, superficie #1D2742, texto #E4DED9 y bronce
+   #9F6A57 como filete), de modo que el estándar aporte robustez sin traer consigo
+   una estética ajena a la plataforma.
+
+   REGLA DEL MANUAL v2.3 QUE AQUÍ SE NOTA: el bronce NO es color de texto. Sobre
+   navy da 2,76:1. Se usa como relleno, filete o icono; cuando hace falta letra de
+   acento, va en brillo (#DEC1B7), que sí se lee.
+
+   La clase `.narsil-bp.bp6-dark` va en el <body> (index.html): los overlays de
+   Blueprint (Dialog, Alert, Popover, Select) se montan en un portal colgado de
+   body, así que aplicarla al contenedor de la app dejaría esos portales sin
+   tematizar.
+   ──────────────────────────────────────────────────────────────────────────── */
+@import '@blueprintjs/icons/lib/css/blueprint-icons.css';
+@import '@blueprintjs/core/lib/css/blueprint.css';
+@import '@blueprintjs/select/lib/css/blueprint-select.css';
+
+.narsil-bp.bp6-dark,
+.narsil-bp .bp6-dark,
+.narsil-bp {
+  /* Acento primario: bronce NARSIL en vez del azul Palantir. Relleno, no letra. */
+  --bp-intent-primary-rest: #C08D4F;
+  --bp-intent-primary-hover: #D9A868;
+  --bp-intent-primary-active: #A9783F;
+  /* Letra sobre el relleno bronce: navy del lienzo, 5,7:1 sobre #C08D4F. */
+  --bp-intent-primary-foreground: #141B2E;
+  --bp-intent-primary-disabled: rgba(192, 141, 79, 0.35);
+
+  /* Intents secundarios alineados con el HUD */
+  --bp-intent-success-rest: #5FCB9B;
+  --bp-intent-danger-rest: #F0736A;
+  --bp-intent-warning-rest: #E0A33E;
+
+  /* Superficies oscuras del HUD */
+  --bp-surface-background-color-default-rest: #1D2742;
+  --bp-surface-background-color-default-hover: #243052;
+  --bp-surface-background-color-default-active: #243052;
+  --bp-surface-background-color-primary-rest: #C08D4F;
+  --bp-surface-background-color-primary-hover: #D9A868;
+  --bp-surface-background-color-primary-active: #A9783F;
+  --bp-surface-border-color-default: #26314F;
+  --bp-surface-border-color-strong: #4A5C84;
+  --bp-surface-border-radius: 8px;
+
+  /* Texto */
+  --bp-typography-color-default-rest: #E4DED9;
+  --bp-typography-color-muted: #A89693;
+  /* Esto SÍ pinta letra (enlaces, texto con intent primario): brillo, no bronce. */
+  --bp-typography-color-primary-rest: #DEC1B7;
+
+  color: #E4DED9;
+  font-family: var(--n-fuente);
+}
+
+/* Acento por contexto: cada capa-agente lo sobreescribe (ámbar, violeta, rojo…)
+   fijando --narsil-accent en su contenedor. Por defecto, el bronce corporativo. */
+.narsil-bp { --narsil-accent: #C08D4F; }
+
+/* Anillo de foco: Blueprint lo pinta en su azul de marca; aquí va en el acento
+   del contexto. Sólo :focus-visible → no aparece al hacer clic con el ratón. */
+.narsil-bp *:focus { outline: none; }
+.narsil-bp *:focus-visible,
+.narsil-bp .bp6-button:focus-visible,
+.narsil-bp .bp6-tab:focus-visible {
+  outline: 2px solid var(--narsil-accent);
+  outline-offset: 1px;
+}
+
+/* ── Campos de texto ────────────────────────────────────────────────────── */
+.narsil-bp .bp6-input,
+.narsil-bp textarea.bp6-input {
+  background: #111829;
+  border: 1px solid #26314F;
+  box-shadow: none;
+  color: #E4DED9;
+  border-radius: 8px;
+  font-family: var(--n-fuente);
+}
+.narsil-bp .bp6-input { height: 38px; }
+.narsil-bp textarea.bp6-input { height: auto; padding: 8px 10px; line-height: 1.45; }
+.narsil-bp .bp6-input::placeholder,
+.narsil-bp textarea.bp6-input::placeholder { color: #7D8CA6; }
+.narsil-bp .bp6-input:focus,
+.narsil-bp textarea.bp6-input:focus {
+  border-color: var(--narsil-accent);
+  box-shadow: 0 0 0 1px var(--narsil-accent), 0 0 10px rgba(192, 141, 79, 0.25);
+}
+.narsil-bp .bp6-input:disabled,
+.narsil-bp .bp6-input.bp6-disabled { background: #0E1424; color: #7D8CA6; }
+
+/* Etiquetas de formulario en mono, como el resto del HUD */
+.narsil-bp .bp6-form-group label.bp6-label {
+  font-family: var(--n-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #A89693;
+  margin-bottom: 6px;
+}
+.narsil-bp .bp6-form-group .bp6-form-helper-text {
+  font-family: var(--n-mono);
+  font-size: 10px;
+  color: #7D8CA6;
+  letter-spacing: 0.04em;
+}
+.narsil-bp .bp6-form-group.bp6-intent-danger .bp6-form-helper-text { color: #F0736A; }
+
+/* ── Botones ────────────────────────────────────────────────────────────── */
+.narsil-bp .bp6-button {
+  border-radius: 8px;
+  font-family: var(--n-fuente);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #1D2742;
+  border: 1px solid #3A4A6E;
+  color: #C4B7B3;
+  box-shadow: none;
+}
+.narsil-bp .bp6-button:hover:not(:disabled) {
+  background: #243052;
+  border-color: var(--narsil-accent);
+  color: #E4DED9;
+}
+.narsil-bp .bp6-button:disabled,
+.narsil-bp .bp6-button.bp6-disabled { opacity: 0.45; color: #7D8CA6; }
+
+.narsil-bp .bp6-button.bp6-intent-primary {
+  background: linear-gradient(90deg, #7FB3E8 0%, #C08D4F 100%);
+  color: #141B2E;
+  border-color: transparent;
+}
+.narsil-bp .bp6-button.bp6-intent-primary:hover:not(:disabled) {
+  background: linear-gradient(90deg, #5B9BD5 0%, #C08D4F 100%);
+  box-shadow: 0 0 12px rgba(192, 141, 79, 0.3);
+  color: #141B2E;
+}
+.narsil-bp .bp6-button.bp6-intent-success {
+  background: rgba(95, 203, 155, 0.12); border-color: #5FCB9B; color: #5FCB9B;
+}
+.narsil-bp .bp6-button.bp6-intent-success:hover:not(:disabled) {
+  background: rgba(95, 203, 155, 0.22); color: #8FDCBA;
+}
+.narsil-bp .bp6-button.bp6-intent-danger {
+  background: rgba(240, 115, 106, 0.12); border-color: #F0736A; color: #F0736A;
+}
+.narsil-bp .bp6-button.bp6-intent-danger:hover:not(:disabled) {
+  background: rgba(240, 115, 106, 0.22); color: #F58E86;
+}
+.narsil-bp .bp6-button.bp6-intent-warning {
+  background: rgba(224, 163, 62, 0.12); border-color: #E0A33E; color: #E0A33E;
+}
+
+.narsil-bp .bp6-button.bp6-minimal,
+.narsil-bp .bp6-button.bp6-variant-minimal {
+  background: transparent; border-color: transparent; color: #A89693;
+}
+.narsil-bp .bp6-button.bp6-minimal:hover:not(:disabled),
+.narsil-bp .bp6-button.bp6-variant-minimal:hover:not(:disabled) {
+  background: rgba(192, 141, 79, 0.08); color: var(--narsil-accent); border-color: transparent;
+}
+.narsil-bp .bp6-button.bp6-outlined,
+.narsil-bp .bp6-button.bp6-variant-outlined {
+  background: transparent; border: 1px solid var(--narsil-accent); color: var(--narsil-accent);
+}
+.narsil-bp .bp6-button.bp6-outlined:hover:not(:disabled),
+.narsil-bp .bp6-button.bp6-variant-outlined:hover:not(:disabled) {
+  background: rgba(192, 141, 79, 0.1);
+}
+.narsil-bp .bp6-button .bp6-icon { color: inherit; }
+
+/* ── Tarjeta ────────────────────────────────────────────────────────────── */
+.narsil-bp .bp6-card {
+  background: linear-gradient(135deg, rgba(20, 27, 46, 0.92) 0%, rgba(20, 27, 46, 0.94) 100%);
+  border: 1px solid #3A4A6E;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 24px rgba(192, 141, 79, 0.08);
+  color: #E4DED9;
+  border-radius: 10px;
+}
+.narsil-bp .bp6-card.bp6-interactive:hover {
+  border-color: var(--narsil-accent);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(192, 141, 79, 0.18);
+}
+
+/* ── Diálogos ───────────────────────────────────────────────────────────── */
+.narsil-bp .bp6-dialog {
+  background: linear-gradient(150deg, #1D2742 0%, #111829 100%);
+  border: 1px solid #3A4A6E;
+  border-radius: 12px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.85), 0 0 30px rgba(192, 141, 79, 0.08);
+  color: #E4DED9;
+  padding-bottom: 0;
+}
+.narsil-bp .bp6-dialog-header {
+  background: rgba(192, 141, 79, 0.05);
+  border-bottom: 1px solid #3A4A6E;
+  border-radius: 12px 12px 0 0;
+  box-shadow: none;
+  min-height: 46px;
+  padding-left: 16px;
+}
+.narsil-bp .bp6-dialog-header .bp6-heading {
+  font-family: var(--n-mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--narsil-accent);
+}
+.narsil-bp .bp6-dialog-header .bp6-icon { color: var(--narsil-accent); }
+.narsil-bp .bp6-dialog-body { color: #C4B7B3; margin: 16px; line-height: 1.5; }
+.narsil-bp .bp6-dialog-footer { border-top: 1px solid #3A4A6E; margin: 0; padding: 12px 16px; }
+.narsil-bp .bp6-overlay-backdrop { background: rgba(9, 13, 24, 0.72); backdrop-filter: blur(2px); }
+
+/* Alertas de confirmación (logout, borrados) */
+.narsil-bp .bp6-alert {
+  background: linear-gradient(150deg, #1D2742 0%, #111829 100%);
+  border: 1px solid #3A4A6E;
+  border-radius: 12px;
+  color: #E4DED9;
+  max-width: 460px;
+}
+/* Un <Alert> de Blueprint ES un <Dialog>, así que hereda la regla de arriba
+   —incluido `padding-bottom: 0`, que allí es correcto porque el DialogFooter
+   llega al borde—. El Alert no tiene ese footer enmarcado: sin padding inferior
+   sus botones quedan pegados al filo de la tarjeta. Se lo devolvemos. */
+.narsil-bp .bp6-alert { padding-bottom: 20px; }
+.narsil-bp .bp6-alert-body { color: #C4B7B3; }
+.narsil-bp .bp6-alert-contents { font-size: 14px; line-height: 1.5; }
+.narsil-bp .bp6-alert-footer { margin-top: 18px; }
+.narsil-bp .bp6-alert-body .bp6-icon { color: #F0736A; }
+/* Patrón de color de las confirmaciones destructivas (criterio de producto):
+   la acción va en rojo y el botón de cancelar, en verde. */
+.narsil-bp .bp6-alert-footer .bp6-button:not(.bp6-intent-danger):not(.bp6-intent-primary) {
+  background: rgba(95, 203, 155, 0.12);
+  border-color: #5FCB9B;
+  color: #5FCB9B;
+}
+.narsil-bp .bp6-alert-footer .bp6-button:not(.bp6-intent-danger):not(.bp6-intent-primary):hover {
+  background: rgba(95, 203, 155, 0.22);
+  color: #8FDCBA;
+}
+
+/* ── Pestañas ───────────────────────────────────────────────────────────── */
+.narsil-bp .bp6-tab {
+  font-family: var(--n-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #A89693;
+}
+.narsil-bp .bp6-tab:hover { color: var(--narsil-accent); }
+.narsil-bp .bp6-tab[aria-selected='true'] { color: var(--narsil-accent); }
+.narsil-bp .bp6-tab-indicator { background-color: var(--narsil-accent); }
+.narsil-bp .bp6-tabs:not(.bp6-vertical) > .bp6-tab-list > *:not(:last-child) { margin-right: 18px; }
+/* Raíl vertical (Configuración): ítems compactos, sin el aire que Blueprint
+   añade por defecto entre pestañas verticales. */
+.narsil-bp .bp6-tabs.bp6-vertical > .bp6-tab-list .bp6-tab[aria-selected='true'] {
+  background: rgba(192, 141, 79, 0.1);
+  border-radius: 6px;
+  border: 1px solid rgba(192, 141, 79, 0.14);
+}
+.narsil-bp .bp6-tabs.bp6-vertical > .bp6-tab-list .bp6-tab {
+  padding: 9px 12px;
+  line-height: 16px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  width: 100%;
+}
+.narsil-bp .bp6-tabs.bp6-vertical > .bp6-tab-list > *:not(:last-child) { margin-bottom: 4px; }
+.narsil-bp .bp6-tabs.bp6-vertical > .bp6-tab-list .bp6-tab-indicator-wrapper { display: none; }
+
+/* Diálogo de Configuración: raíl de pestañas fijo + panel con scroll propio.
+   La altura del diálogo es fija (la de la pestaña más alta) para que el raíl no
+   se mueva al cambiar de pestaña. */
+.narsil-bp .narsil-settings-dialog { display: flex; flex-direction: column; }
+.narsil-bp .narsil-settings-dialog .narsil-settings-body {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.narsil-bp .narsil-settings-tabs {
+  height: 100%;
+  gap: 0;
+}
+.narsil-bp .narsil-settings-tabs > .bp6-tab-list {
+  width: 180px;
+  flex: 0 0 180px;
+  border-right: 1px solid rgba(192, 141, 79, 0.14);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  gap: 4px;
+  overflow-y: auto;
+}
+.narsil-bp .narsil-settings-tabs > .bp6-tab-panel {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 18px;
+  overflow-y: auto;
+}
+
+/* Manual operativo: mismo patrón que el diálogo de Configuración —raíl fijo a la izquierda,
+   contenido con su propio scroll— pero más ancho, porque aquí se lee prosa y no se rellenan
+   campos. */
+.narsil-bp .narsil-docs-dialog { display: flex; flex-direction: column; }
+.narsil-bp .narsil-docs-dialog .narsil-docs-body {
+  flex: 1; min-height: 0; margin: 0; padding: 0; overflow: hidden;
+}
+.narsil-bp .narsil-docs-tabs { height: 100%; gap: 0; }
+.narsil-bp .narsil-docs-tabs > .bp6-tab-list {
+  width: 232px;
+  flex: 0 0 232px;
+  border-right: 1px solid rgba(192, 141, 79, 0.14);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 12px 10px;
+  gap: 4px;
+  overflow-y: auto;
+}
+.narsil-bp .narsil-docs-tabs > .bp6-tab-panel {
+  flex: 1; min-width: 0; margin: 0; padding: 24px 28px; overflow-y: auto;
+}
+/* Los rótulos del raíl llevan emoji + nombre: aquí el texto manda sobre el mono comprimido. */
+.narsil-bp .narsil-docs-tabs > .bp6-tab-list .bp6-tab {
+  font-family: var(--n-fuente);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+/* ── Menús y popovers (base de Select, menús contextuales) ──────────────── */
+.narsil-bp .bp6-popover .bp6-popover-content,
+.narsil-bp .bp6-menu {
+  background: #141B2E;
+  border: 1px solid #26314F;
+  border-radius: 8px;
+  color: #E4DED9;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 12px rgba(192, 141, 79, 0.13);
+}
+.narsil-bp .bp6-popover .bp6-popover-arrow-fill { fill: #141B2E; }
+.narsil-bp .bp6-menu-item {
+  border-radius: 6px;
+  color: #C4B7B3;
+  font-family: var(--n-fuente);
+  font-size: 13px;
+}
+.narsil-bp .bp6-menu-item:hover,
+.narsil-bp .bp6-menu-item.bp6-active {
+  background: rgba(192, 141, 79, 0.12);
+  color: var(--narsil-accent);
+}
+.narsil-bp .bp6-menu-item.bp6-selected,
+.narsil-bp .bp6-menu-item[aria-selected='true'] {
+  background: rgba(192, 141, 79, 0.16);
+  color: var(--narsil-accent);
+}
+.narsil-bp .bp6-menu-item.bp6-intent-danger { color: #F0736A; }
+.narsil-bp .bp6-menu-item.bp6-intent-danger:hover { background: rgba(240, 115, 106, 0.14); color: #F58E86; }
+.narsil-bp .bp6-menu-divider { border-color: #3A4A6E; }
+.narsil-bp .bp6-menu-header > h6 {
+  font-family: var(--n-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: #7D8CA6;
+}
+
+/* ── Tooltip ────────────────────────────────────────────────────────────── */
+.narsil-bp .bp6-tooltip .bp6-popover-content {
+  background: #111829;
+  border: 1px solid #26314F;
+  color: #C4B7B3;
+  font-size: 12px;
+}
+.narsil-bp .bp6-tooltip .bp6-popover-arrow-fill { fill: #111829; }
+
+/* ── Tablas ─────────────────────────────────────────────────────────────── */
+.narsil-bp .bp6-html-table {
+  color: #C4B7B3;
+  font-family: var(--n-fuente);
+  width: 100%;
+}
+.narsil-bp .bp6-html-table th {
+  font-family: var(--n-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #7D8CA6;
+  border-bottom: 1px solid #3A4A6E !important;
+  box-shadow: none !important;
+  padding: 8px 10px;
+}
+.narsil-bp .bp6-html-table td {
+  border-top: 1px solid #26314F !important;
+  box-shadow: none !important;
+  color: #C4B7B3;
+  padding: 8px 10px;
+  vertical-align: middle;
+}
+.narsil-bp .bp6-html-table.bp6-html-table-striped tbody tr:nth-child(odd) td {
+  background: rgba(192, 141, 79, 0.03);
+}
+.narsil-bp .bp6-html-table.bp6-interactive tbody tr:hover td {
+  background: rgba(192, 141, 79, 0.07);
+}
+
+/* ── Switch / Checkbox / Radio ──────────────────────────────────────────── */
+.narsil-bp .bp6-control { color: #C4B7B3; font-family: var(--n-fuente); }
+/* SEGURIDAD (rejilla de permisos de Usuarios): el acento pleno se reserva a las
+   casillas OPERABLES. Una casilla deshabilitada marca una capa que el gestor no
+   posee y, por tanto, no puede conceder ni retirar; debe leerse como bloqueada de
+   un vistazo. Sin el `:not(:disabled)`, el `!important` pisaba el estilo de
+   Blueprint para «disabled+checked» y la dejaba idéntica a una concedible. */
+.narsil-bp .bp6-control input:checked:not(:disabled) ~ .bp6-control-indicator {
+  background-color: var(--narsil-accent) !important;
+  box-shadow: 0 0 8px rgba(192, 141, 79, 0.35);
+}
+.narsil-bp .bp6-control:not(.bp6-align-right) .bp6-control-indicator {
+  background-color: #243052;
+  border: 1px solid #3A4A6E;
+  box-shadow: none;
+}
+/* Estado bloqueado, en la paleta del HUD (Blueprint lo pintaría en azul). */
+.narsil-bp .bp6-control input:disabled ~ .bp6-control-indicator {
+  background-color: #1D2742 !important;
+  border: 1px dashed #4A5C84;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.narsil-bp .bp6-control input:disabled:checked ~ .bp6-control-indicator {
+  background-color: rgba(192, 141, 79, 0.2) !important;
+  border: 1px dashed rgba(192, 141, 79, 0.4);
+  box-shadow: none;
+}
+.narsil-bp .bp6-control.bp6-switch input ~ .bp6-control-indicator::before { background: #A89693; }
+.narsil-bp .bp6-control.bp6-switch input:checked ~ .bp6-control-indicator::before { background: #141B2E; }
+
+/* ── Callout ────────────────────────────────────────────────────────────── */
+.narsil-bp .bp6-callout {
+  background: rgba(192, 141, 79, 0.06);
+  border: 1px solid #26314F;
+  border-radius: 8px;
+  color: #C4B7B3;
+  font-family: var(--n-fuente);
+}
+.narsil-bp .bp6-callout .bp6-heading {
+  font-family: var(--n-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--narsil-accent);
+}
+.narsil-bp .bp6-callout.bp6-intent-danger { background: rgba(240, 115, 106, 0.08); border-color: #3E1F1D; }
+.narsil-bp .bp6-callout.bp6-intent-danger .bp6-heading { color: #F0736A; }
+.narsil-bp .bp6-callout.bp6-intent-warning { background: rgba(224, 163, 62, 0.08); border-color: #3E3113; }
+.narsil-bp .bp6-callout.bp6-intent-warning .bp6-heading { color: #E0A33E; }
+.narsil-bp .bp6-callout.bp6-intent-success { background: rgba(95, 203, 155, 0.08); border-color: #1B3A30; }
+.narsil-bp .bp6-callout.bp6-intent-success .bp6-heading { color: #5FCB9B; }
+
+/* ── Tags ───────────────────────────────────────────────────────────────── */
+.narsil-bp .bp6-tag {
+  background: rgba(192, 141, 79, 0.12);
+  color: var(--narsil-accent);
+  border-radius: 6px;
+  font-family: var(--n-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.narsil-bp .bp6-tag.bp6-minimal { background: rgba(192, 141, 79, 0.08); }
+.narsil-bp .bp6-tag.bp6-intent-danger { background: rgba(240, 115, 106, 0.14); color: #F0736A; }
+.narsil-bp .bp6-tag.bp6-intent-success { background: rgba(95, 203, 155, 0.14); color: #5FCB9B; }
+.narsil-bp .bp6-tag.bp6-intent-warning { background: rgba(224, 163, 62, 0.14); color: #E0A33E; }
+
+/* ── Spinner / progreso ─────────────────────────────────────────────────── */
+.narsil-bp .bp6-spinner .bp6-spinner-head { stroke: var(--narsil-accent); }
+.narsil-bp .bp6-spinner .bp6-spinner-track { stroke: rgba(192, 141, 79, 0.15); }
+.narsil-bp .bp6-progress-bar { background: rgba(192, 141, 79, 0.12); }
+.narsil-bp .bp6-progress-bar .bp6-progress-meter { background: var(--narsil-accent); }
+
+/* ── Iconos y textos utilitarios ────────────────────────────────────────── */
+.narsil-bp .bp6-icon { color: #A89693; }
+.narsil-bp .bp6-text-muted { color: #7D8CA6; }
+.narsil-bp .bp6-heading { color: #E4DED9; font-family: var(--n-fuente); }
+.narsil-bp .bp6-divider { border-color: #3A4A6E; }
+
+/* ── Numeric input / control group ──────────────────────────────────────── */
+.narsil-bp .bp6-control-group .bp6-button { border-radius: 0; }
+.narsil-bp .bp6-control-group > :first-child .bp6-input { border-radius: 8px 0 0 8px; }
+.narsil-bp .bp6-control-group > :last-child .bp6-button { border-radius: 0 8px 8px 0; }
+

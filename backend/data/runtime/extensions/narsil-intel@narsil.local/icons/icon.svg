@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <rect width="48" height="48" rx="8" fill="#141B2E"/>
+  <!-- Outer ring -->
+  <circle cx="24" cy="24" r="20" stroke="#C08D4F" stroke-width="1.5" fill="none" opacity="0.45"/>
+  <!-- Middle ring -->
+  <circle cx="24" cy="24" r="13" stroke="#C08D4F" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <!-- Cross hairs -->
+  <line x1="24" y1="4"  x2="24" y2="11" stroke="#C08D4F" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="24" y1="37" x2="24" y2="44" stroke="#C08D4F" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="4"  y1="24" x2="11" y2="24" stroke="#C08D4F" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="37" y1="24" x2="44" y2="24" stroke="#C08D4F" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Inner dot -->
+  <circle cx="24" cy="24" r="3.5" fill="#C08D4F"/>
+  <!-- Accent ticks at 45° -->
+  <line x1="10" y1="10" x2="14" y2="14" stroke="#C08D4F" stroke-width="1"   opacity="0.5"/>
+  <line x1="38" y1="10" x2="34" y2="14" stroke="#C08D4F" stroke-width="1"   opacity="0.5"/>
+  <line x1="10" y1="38" x2="14" y2="34" stroke="#C08D4F" stroke-width="1"   opacity="0.5"/>
+  <line x1="38" y1="38" x2="34" y2="34" stroke="#C08D4F" stroke-width="1"   opacity="0.5"/>
+</svg>

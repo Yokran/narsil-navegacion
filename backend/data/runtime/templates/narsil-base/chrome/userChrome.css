@@ -1,0 +1,275 @@
+﻿/*
+ * NARSIL 2026 — Firefox Chrome Theme
+ * Paleta idéntica a la app (manual de marca v2.3): lienzo #141B2E, texto #E4DED9
+ * y bronce #9F6A57 SOLO como filete. El bronce sobre navy da 2,76:1: no es color de letra.
+ *
+ * OJO: al crear o abrir una identidad, la app REESCRIBE el userChrome.css del perfil con
+ * la regla del badge, así que este tema no llega a verse. Se mantiene en la marca correcta
+ * para que no haya paleta ajena en el producto.
+ *
+ * Requiere en user.js:
+ *   toolkit.legacyUserProfileCustomizations.stylesheets = true
+ */
+
+/* ── Variables NARSIL ──────────────────────────────────────────────────── */
+:root {
+  --n-bg:        #141B2E;
+  --n-mid:       #0E1424;
+  --n-panel:     #1D2742;
+  --n-card:      #1D2742;
+  --n-border:    #26314F;
+  --n-hover:     #243052;
+  --n-brillo:    #DEC1B7;   /* el acento que sí se lee */
+  --n-bronce:    #9F6A57;   /* filete e icono, NUNCA letra */
+  --n-bronce-vivo: #C08D4F;
+  --n-text:      #E4DED9;
+  --n-muted:     #A89693;
+  --n-dim:       #7D8CA6;
+}
+
+/* ── Ventana principal ─────────────────────────────────────────────────── */
+#main-window,
+#navigator-toolbox {
+  background-color: var(--n-bg) !important;
+  color:            var(--n-text) !important;
+}
+
+/* ── Barra de pestañas ─────────────────────────────────────────────────── */
+#TabsToolbar {
+  background-color: var(--n-bg) !important;
+  border-bottom: 1px solid var(--n-border) !important;
+}
+
+/* Fondo del contenedor de pestañas */
+.tabbrowser-tabpanels,
+browser {
+  background: var(--n-bg) !important;
+}
+
+/* Pestaña inactiva */
+.tabbrowser-tab:not([selected]):not([multiselected]) .tab-background {
+  background-color: transparent !important;
+  border: none !important;
+}
+.tabbrowser-tab:not([selected]):not([multiselected]):hover .tab-background {
+  background-color: var(--n-border) !important;
+}
+
+/* Pestaña activa */
+.tabbrowser-tab[selected] .tab-background {
+  background-color: var(--n-card) !important;
+  border: 1px solid var(--n-border) !important;
+  border-bottom: none !important;
+  border-radius: 4px 4px 0 0 !important;
+}
+
+/* Línea de acento sobre pestaña activa */
+.tabbrowser-tab[selected] .tab-line {
+  background-color: var(--n-bronce) !important;
+  opacity: 1 !important;
+}
+
+/* Texto de pestaña */
+.tab-label {
+  color:     var(--n-text) !important;
+  font-size: 11px !important;
+}
+.tabbrowser-tab:not([selected]) .tab-label {
+  color: var(--n-muted) !important;
+}
+
+/* Botón cerrar pestaña */
+.tab-close-button {
+  color: var(--n-dim) !important;
+}
+.tab-close-button:hover {
+  color:            var(--n-text) !important;
+  background-color: var(--n-hover) !important;
+  border-radius:    3px !important;
+}
+
+/* Botón nueva pestaña */
+#tabs-newtab-button,
+.tabs-newtab-button {
+  color: var(--n-muted) !important;
+}
+#tabs-newtab-button:hover,
+.tabs-newtab-button:hover {
+  color: var(--n-brillo) !important;
+}
+
+/* ── Barra de navegación ───────────────────────────────────────────────── */
+#nav-bar {
+  background-color: var(--n-bg) !important;
+  border-top:    none !important;
+  border-bottom: 1px solid var(--n-border) !important;
+  box-shadow:    none !important;
+  padding: 3px 6px !important;
+}
+
+/* Botones de navegación (atrás, adelante, recargar) */
+#back-button image,
+#forward-button image,
+#reload-button image,
+#stop-button image,
+#home-button image {
+  color: var(--n-muted) !important;
+  -moz-context-properties: fill;
+  fill: var(--n-muted) !important;
+}
+#back-button:not([disabled]):hover,
+#forward-button:not([disabled]):hover,
+#reload-button:hover,
+#stop-button:hover,
+#home-button:hover {
+  background-color: var(--n-border) !important;
+  border-radius:    4px !important;
+}
+
+/* ── Barra de direcciones (URL bar) ────────────────────────────────────── */
+#urlbar {
+  background-color: var(--n-panel) !important;
+  border:           1px solid var(--n-border) !important;
+  border-radius:    4px !important;
+  color:            var(--n-text) !important;
+  --urlbar-box-bgcolor:               var(--n-panel) !important;
+  --urlbar-box-focus-bgcolor:         var(--n-card) !important;
+  --urlbar-box-hover-bgcolor:         var(--n-card) !important;
+  --urlbar-box-active-bgcolor:        var(--n-card) !important;
+  --toolbar-field-background-color:   var(--n-panel) !important;
+  --toolbar-field-color:              var(--n-text) !important;
+  --toolbar-field-border-color:       var(--n-border) !important;
+  --toolbar-field-focus-background-color: var(--n-card) !important;
+  --toolbar-field-focus-color:        var(--n-text) !important;
+  --toolbar-field-focus-border-color: var(--n-bronce) !important;
+}
+
+#urlbar:focus-within,
+#urlbar[focused="true"] {
+  border-color: var(--n-bronce) !important;
+  box-shadow:   0 0 0 1px var(--n-bronce), 0 0 8px rgba(192, 141, 79, 0.12) !important;
+}
+
+#urlbar-input {
+  color:        var(--n-text) !important;
+  font-family:  'JetBrains Mono', 'Cascadia Mono', 'Consolas', monospace !important;
+  font-size:    13px !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* Esquema de URL (https:// en brillo) */
+#urlbar .urlbar-scheme {
+  color: var(--n-bronce) !important;
+}
+
+/* Dropdown de sugerencias */
+#urlbar-results {
+  background-color: var(--n-panel) !important;
+  border:           1px solid var(--n-border) !important;
+  border-top:       none !important;
+}
+.urlbarView-row:hover,
+.urlbarView-row[selected] {
+  background-color: var(--n-card) !important;
+}
+.urlbarView-url {
+  color: var(--n-bronce) !important;
+}
+.urlbarView-title {
+  color: var(--n-text) !important;
+}
+
+/* ── Menú hamburguesa y extensiones ────────────────────────────────────── */
+#PanelUI-button,
+#unified-extensions-button {
+  color: var(--n-muted) !important;
+}
+#PanelUI-button:hover,
+#unified-extensions-button:hover {
+  background-color: var(--n-border) !important;
+  border-radius:    4px !important;
+}
+
+/* ── Panel de menú principal ───────────────────────────────────────────── */
+#appMenu-popup,
+#appMenu-protonMainView {
+  background-color: var(--n-panel) !important;
+  border:           1px solid var(--n-border) !important;
+  border-radius:    6px !important;
+  color:            var(--n-text) !important;
+}
+.panel-subview-body {
+  background-color: var(--n-panel) !important;
+}
+toolbarbutton.subviewbutton:hover,
+.subviewbutton:hover {
+  background-color: var(--n-border) !important;
+  color:            var(--n-brillo) !important;
+}
+
+/* ── Menús contextuales ────────────────────────────────────────────────── */
+menupopup {
+  --panel-background:    var(--n-panel) !important;
+  --panel-color:         var(--n-text) !important;
+  --panel-border-color:  var(--n-border) !important;
+  --menuitem-hover-background-color: var(--n-border) !important;
+}
+menupopup > menuitem:hover,
+menupopup > menu:hover {
+  background-color: var(--n-border) !important;
+  color:            var(--n-brillo) !important;
+}
+menuseparator {
+  border-color: var(--n-border) !important;
+}
+
+/* ── Barra de búsqueda (Ctrl+F) ────────────────────────────────────────── */
+#FindToolbar {
+  background-color: var(--n-panel) !important;
+  border-top:       1px solid var(--n-border) !important;
+  color:            var(--n-text) !important;
+}
+#findbar-textbox {
+  background-color: var(--n-card) !important;
+  border:           1px solid var(--n-border) !important;
+  color:            var(--n-text) !important;
+  border-radius:    3px !important;
+  font-family:      'JetBrains Mono', monospace !important;
+}
+
+/* ── Barra de estado / info ────────────────────────────────────────────── */
+#statuspanel-label {
+  background-color: var(--n-panel) !important;
+  border:           1px solid var(--n-border) !important;
+  color:            var(--n-muted) !important;
+  font-size:        11px !important;
+}
+
+/* ── Sidebar (historial, marcadores) ───────────────────────────────────── */
+#sidebar-box {
+  background-color: var(--n-mid) !important;
+  border-right:     1px solid var(--n-border) !important;
+  color:            var(--n-text) !important;
+}
+#sidebar-header {
+  background-color: var(--n-bg) !important;
+  border-bottom:    1px solid var(--n-border) !important;
+  color:            var(--n-text) !important;
+}
+
+/* ── Scrollbars del chrome ──────────────────────────────────────────────── */
+scrollbar {
+  -moz-appearance: none !important;
+  background-color: transparent !important;
+}
+scrollbarbutton {
+  display: none !important;
+}
+thumb {
+  background-color: #153030 !important;
+  border-radius:    2px !important;
+  min-height:       20px !important;
+}
+thumb:hover {
+  background-color: var(--n-dim) !important;
+}

@@ -1,0 +1,34 @@
+# ── Nada de navegador ni de identidades en el repositorio ──────────────────
+# El Firefox base son ~300 MB de binarios que no son nuestros, y los perfiles
+# son las identidades operativas: historial, cookies y credenciales. Ni una cosa
+# ni la otra tienen sitio en un control de versiones.
+backend/data/runtime/base_browser/
+backend/data/profiles/
+backend/data/settings/
+backend/data/logs/
+
+# ── Entornos y artefactos de construcción ─────────────────────────────────
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+node_modules/
+ui/dist/
+
+# ── Capturas de verificación (evidencia local, no producto) ───────────────
+capturas/
+
+# ── Ruido del sistema ─────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.log
+
+# ── Construcción del ejecutable ────────────────────────────────────────────
+.venv-build/
+dist/
+build/
+
+# ── Ejecutables distribuibles (se publican como Releases o se copian a mano) ──
+ejecutables/*
+!ejecutables/LEEME.md

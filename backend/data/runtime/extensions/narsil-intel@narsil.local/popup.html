@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>NARSIL Intelligence Collector</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 315px;
+      background: #141B2E;
+      color: #E4DED9;
+      font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+      font-size: 12px;
+      border: 1px solid rgba(192, 141, 79, .3);
+    }
+    header {
+      padding: 11px 13px 9px;
+      border-bottom: 1px solid rgba(192, 141, 79, .2);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: #030d18;
+    }
+    .logo { width: 20px; height: 20px; flex-shrink: 0; }
+    .title { color: #DEC1B7; font-size: 10px; letter-spacing: 1.5px; white-space: nowrap; }
+    .net-row { padding: 7px 13px; font-size: 10px; color: rgba(224,244,242,.55); border-bottom: 1px solid rgba(192, 141, 79, .08); }
+    .net-row span { color: #00ffdd; }
+    .section { padding: 10px 13px; border-bottom: 1px solid rgba(192, 141, 79, .08); }
+    .section-title { color: rgba(192, 141, 79, .72); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 7px; }
+    .field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 7px; }
+    label { color: rgba(224,244,242,.55); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
+    select, textarea {
+      width: 100%;
+      background: rgba(192, 141, 79, .06);
+      border: 1px solid rgba(192, 141, 79, .22);
+      border-radius: 3px;
+      color: #E4DED9;
+      font: inherit;
+      font-size: 10px;
+      padding: 6px 7px;
+      outline: none;
+    }
+    textarea { min-height: 58px; resize: vertical; line-height: 1.35; }
+    select:focus, textarea:focus { border-color: rgba(192, 141, 79, .6); }
+    option { background: #141B2E; color: #E4DED9; }
+    .btn {
+      background: rgba(192, 141, 79, .07);
+      border: 1px solid rgba(192, 141, 79, .27);
+      border-radius: 3px;
+      color: #E4DED9;
+      font-family: inherit;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 7px 9px;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      transition: background .12s;
+    }
+    .btn:hover { background: rgba(192, 141, 79, .15); border-color: rgba(192, 141, 79, .55); }
+    .btn.primary { border-color: rgba(192, 141, 79, .7); color: #DEC1B7; }
+    .btn.pending { background: rgba(192, 141, 79, .16); box-shadow: 0 0 8px rgba(192, 141, 79, .18); }
+    .btn.warn { border-color: rgba(255,190,80,.45); color: #ffd38a; }
+    .btn.recording {
+      border-color: rgba(255,70,86,.85);
+      color: #ff6b78;
+      background: rgba(255,70,86,.08);
+      box-shadow: 0 0 10px rgba(255,70,86,.18);
+    }
+    .btn.recording:hover {
+      background: rgba(255,70,86,.14);
+      border-color: rgba(255,70,86,1);
+    }
+    .btn.recording:disabled {
+      border-color: rgba(255,70,86,.6);
+      color: rgba(255,107,120,.72);
+      background: rgba(255,70,86,.055);
+      box-shadow: 0 0 8px rgba(255,70,86,.12);
+    }
+    .btn:disabled { opacity: .45; cursor: default; background: rgba(192, 141, 79, .035); border-color: rgba(192, 141, 79, .16); color: rgba(224,244,242,.45); box-shadow: none; }
+    .btn:disabled:hover { background: rgba(192, 141, 79, .035); border-color: rgba(192, 141, 79, .16); }
+    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .module-list { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+    .module-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 24px;
+      padding: 5px 7px;
+      background: rgba(192, 141, 79, .045);
+      border: 1px solid rgba(192, 141, 79, .14);
+      border-radius: 3px;
+      color: rgba(224,244,242,.78);
+      font-size: 9px;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      flex: 0 0 7px;
+      border-radius: 999px;
+      background: #C08D4F;
+      box-shadow: 0 0 7px rgba(192, 141, 79, .8);
+    }
+    .module-link {
+      border: 1px solid rgba(192, 141, 79, .14);
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+    }
+    .module-link:hover {
+      background: rgba(192, 141, 79, .11);
+      border-color: rgba(192, 141, 79, .38);
+    }
+    .hint { margin-top: 6px; color: rgba(224,244,242,.45); font-size: 10px; line-height: 1.35; }
+    #status { padding: 8px 13px; font-size: 10px; color: rgba(224,244,242,.55); min-height: 28px; }
+    footer { padding: 6px 13px; font-size: 9px; color: rgba(192, 141, 79, .25); letter-spacing: 2px; text-align: center; border-top: 1px solid rgba(192, 141, 79, .07); }
+  </style>
+</head>
+<body>
+  <header>
+    <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" stroke="#C08D4F" stroke-width="1.5" opacity="0.45"/>
+      <circle cx="12" cy="12" r="5"  stroke="#C08D4F" stroke-width="1.5"/>
+      <line x1="12" y1="2"  x2="12" y2="7"  stroke="#C08D4F" stroke-width="1.5"/>
+      <line x1="12" y1="17" x2="12" y2="22" stroke="#C08D4F" stroke-width="1.5"/>
+      <line x1="2"  y1="12" x2="7"  y2="12" stroke="#C08D4F" stroke-width="1.5"/>
+      <line x1="17" y1="12" x2="22" y2="12" stroke="#C08D4F" stroke-width="1.5"/>
+      <circle cx="12" cy="12" r="2" fill="#C08D4F"/>
+    </svg>
+    <span class="title">NARSIL INTELLIGENCE COLLECTOR</span>
+  </header>
+
+  <div class="net-row">RED ACTIVA: <span id="net-name">Detectando...</span></div>
+
+  <div class="section">
+    <div class="section-title">Grabacion de evidencia</div>
+    <button class="btn warn" id="btn-rec-toggle">Iniciar grabacion de pestana</button>
+    <div class="hint" id="recorder-state">Graba visualmente la pestana activa del navegador enfocado. Al cambiar de pestana, la sesion sigue la pestana activa.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Modulos disponibles</div>
+    <div class="module-list" id="module-list">
+      <button type="button" class="module-item module-link" data-url="https://www.tiktok.com/"><span class="status-dot"></span>TikTok</button>
+      <button type="button" class="module-item module-link" data-url="https://www.instagram.com/"><span class="status-dot"></span>Instagram</button>
+      <button type="button" class="module-item module-link" data-url="https://www.facebook.com/"><span class="status-dot"></span>Facebook</button>
+      <button type="button" class="module-item module-link" data-url="https://x.com/"><span class="status-dot"></span>X / Twitter</button>
+      <button type="button" class="module-item module-link" data-url="https://www.linkedin.com/"><span class="status-dot"></span>LinkedIn</button>
+      <button type="button" class="module-item module-link" data-url="https://www.youtube.com/"><span class="status-dot"></span>YouTube</button>
+      <button type="button" class="module-item module-link" data-url="https://discord.com/channels/@me"><span class="status-dot"></span>Discord</button>
+      <button type="button" class="module-item module-link" data-url="https://web.whatsapp.com/"><span class="status-dot"></span>WhatsApp</button>
+      <button type="button" class="module-item module-link" data-url="https://web.telegram.org/"><span class="status-dot"></span>Telegram</button>
+      <button type="button" class="module-item module-link" data-url="https://app.element.io/"><span class="status-dot"></span>Matrix</button>
+    </div>
+    <div class="hint">El panel operativo se abre desde el comando o desde la pestana lateral al entrar en un servicio compatible.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">User-Agent</div>
+    <div class="field">
+      <label for="ua-preset">Perfil</label>
+      <select id="ua-preset">
+        <option value="default">Por defecto</option>
+        <option value="chrome_win">Chrome Desktop</option>
+        <option value="opera_win">Opera Desktop</option>
+        <option value="safari_mac">Safari Desktop</option>
+        <option value="android_chrome">Chrome Movil</option>
+        <option value="android_firefox">Firefox Movil</option>
+        <option value="android_opera">Opera Movil</option>
+        <option value="iphone_safari">Safari Movil</option>
+        <option value="custom">Personalizado</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="ua-value">Valor activo</label>
+      <textarea id="ua-value" spellcheck="false"></textarea>
+    </div>
+    <div class="btn-grid">
+      <button class="btn" id="btn-ua-save" disabled>Activar</button>
+      <button class="btn" id="btn-ua-clear">Desactivar</button>
+    </div>
+    <div class="hint">Tras cambiarlo, recarga las paginas abiertas para que usen el nuevo User-Agent.</div>
+  </div>
+
+  <div id="status"></div>
+  <footer>NARSIL INTELLIGENCE COLLECTOR v2026</footer>
+  <script src="popup.js"></script>
+</body>
+</html>

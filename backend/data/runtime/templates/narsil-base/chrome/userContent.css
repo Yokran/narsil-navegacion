@@ -1,0 +1,31 @@
+﻿/*
+ * NARSIL 2026 — Firefox Content Theme
+ * Estiliza páginas internas de Firefox y scrollbars globales.
+ */
+
+/* ── Nueva pestaña / about:blank ───────────────────────────────────────── */
+@-moz-document url("about:newtab"),
+               url("about:home"),
+               url("about:blank") {
+  html, body {
+    background-color: #141B2E !important;
+    color:            #e0f4f2 !important;
+  }
+}
+
+/* ── Scrollbars en todas las páginas web ───────────────────────────────── */
+@-moz-document regexp(".*") {
+  * {
+    scrollbar-color: #153030 transparent !important;
+    scrollbar-width: thin !important;
+  }
+}
+
+/* ── about:config ──────────────────────────────────────────────────────── */
+@-moz-document url("about:config") {
+  html, body {
+    background-color: #141B2E !important;
+    color:            #e0f4f2 !important;
+    font-family:      'JetBrains Mono', monospace !important;
+  }
+}

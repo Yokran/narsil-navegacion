@@ -1,0 +1,103 @@
+{
+  "manifest_version": 2,
+  "name": "NARSIL Intelligence Collector",
+  "version": "1.0.2",
+  "description": "NARSIL — extracción OSINT autorizada, user-agent operativo y grabación de evidencias en el navegador.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "narsil-intel@narsil.local",
+      "strict_min_version": "109.0"
+    }
+  },
+  "permissions": [
+    "downloads",
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "tabs",
+    "activeTab",
+    "<all_urls>"
+  ],
+  "commands": {
+    "toggle-panel": {
+      "suggested_key": { "default": "Ctrl+Shift+Space" },
+      "description": "Mostrar u ocultar el panel de extracción del servicio activo"
+    },
+    "open-main-menu": {
+      "suggested_key": { "default": "Ctrl+Shift+Y" },
+      "description": "Abrir o cerrar el menú principal de NARSIL Intelligence Collector"
+    }
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["ua_inject_start.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "*://*.tiktok.com/*",
+        "*://*.instagram.com/*",
+        "*://*.facebook.com/*",
+        "*://twitter.com/*",
+        "*://x.com/*",
+        "*://*.linkedin.com/*",
+        "*://*.youtube.com/*",
+        "*://web.whatsapp.com/*",
+        "*://web.telegram.org/*",
+        "*://app.element.io/*",
+        "*://*.matrix.org/*",
+        "*://discord.com/*"
+      ],
+      "js": ["inject_start.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "*://*.tiktok.com/*",
+        "*://*.instagram.com/*",
+        "*://*.facebook.com/*",
+        "*://twitter.com/*",
+        "*://x.com/*",
+        "*://*.linkedin.com/*",
+        "*://*.youtube.com/*",
+        "*://web.whatsapp.com/*",
+        "*://web.telegram.org/*",
+        "*://app.element.io/*",
+        "*://*.matrix.org/*",
+        "*://discord.com/*"
+      ],
+      "js": [
+        "utils/schema.js",
+        "utils/export.js",
+        "utils/scroll.js",
+        "utils/react.js",
+        "modules/detector.js",
+        "modules/tiktok.js",
+        "modules/instagram.js",
+        "modules/facebook.js",
+        "modules/twitter.js",
+        "modules/linkedin.js",
+        "modules/youtube.js",
+        "modules/whatsapp.js",
+        "modules/telegram.js",
+        "modules/matrix.js",
+        "modules/discord.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": ["injector.js", "ua_shim.js"],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": { "48": "icons/icon.svg" },
+    "default_title": "NARSIL Intelligence Collector"
+  },
+  "icons": { "48": "icons/icon.svg", "96": "icons/icon.svg" }
+}

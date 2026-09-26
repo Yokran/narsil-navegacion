@@ -1,0 +1,6 @@
+# Lo que hace falta para construir el ejecutable, además de backend/requirements.txt.
+pyinstaller==6.22.3
+pywebview==6.2.1
+# Motor de ventana en Windows (WebView2 a través de .NET). En Linux pywebview usa WebKitGTK del
+# sistema (paquetes python3-gi + gir1.2-webkit2-4.1) y no necesita nada más de pip.
+pythonnet==3.1.0; sys_platform == "win32"
